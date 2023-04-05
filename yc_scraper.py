@@ -7,7 +7,7 @@ proxies = {
                 "https": PROXY
     }
 import requests
-import pandas as pd 
+import pandas as pd
 import string
 
 
@@ -34,10 +34,10 @@ params = {
 }
 
 results = []
-for i in list(string.ascii_letters):
 # for i in ["a"]:
-    data = '{"requests":[{"indexName":"YCCompany_production","params":"hitsPerPage=1000&maxValuesPerFacet=1000&query=&page=1&facets=%5B%22top_company%22%2C%22isHiring%22%2C%22nonprofit%22%2C%22highlight_black%22%2C%22highlight_latinx%22%2C%22highlight_women%22%2C%22batch%22%2C%22industries%22%2C%22subindustry%22%2C%22status%22%2C%22regions%22%2C%22tags%22%5D&tagFilters="}]}'
+data = '{"requests":[{"indexName":"YCCompany_production","params":"hitsPerPage=1000&maxValuesPerFacet=1000&query=&page=1&facets=%5B%22top_company%22%2C%22isHiring%22%2C%22nonprofit%22%2C%22highlight_black%22%2C%22highlight_latinx%22%2C%22highlight_women%22%2C%22batch%22%2C%22industries%22%2C%22subindustry%22%2C%22status%22%2C%22regions%22%2C%22tags%22%5D&tagFilters="}]}'
 
+for _ in list(string.ascii_letters):
     response = requests.post('https://45bwzj1sgc-dsn.algolia.net/1/indexes/*/queries', headers=headers, params=params, data=data)
     print(response.text)
     results += response.json()["results"][0]["hits"]

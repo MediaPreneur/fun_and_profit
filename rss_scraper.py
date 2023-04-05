@@ -43,15 +43,15 @@ def parse_feed(url):
     return results 
 
 def scrape_news(keyword):
-    url = "https://news.google.com/rss/search?q={}&hl=en-US&gl=US&ceid=US:en".format(keyword)
+    url = f"https://news.google.com/rss/search?q={keyword}&hl=en-US&gl=US&ceid=US:en"
     return parse_feed(url)
 
 def scrape_jobs(keyword):
-    url = "https://rss.indeed.com/rss?q={}".format(keyword)
+    url = f"https://rss.indeed.com/rss?q={keyword}"
     return parse_feed(url)
 
 def scrape_freelance_jobs(keyword):
-    url = "https://www.upwork.com/ab/feed/jobs/rss?q={}".format(keyword)
+    url = f"https://www.upwork.com/ab/feed/jobs/rss?q={keyword}"
     return parse_feed(url)
 
 if __name__ == "__main__":

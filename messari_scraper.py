@@ -101,8 +101,6 @@ if __name__ == "__main__":
     df = pd.read_csv('messari_scraper.csv')
     slugs = df['slug'].tolist()
     print(len(slugs))
-    results = []
-    for slug in slugs[:5]:
-        results.append(get_messari_asset_details_graphql(slug))
+    results = [get_messari_asset_details_graphql(slug) for slug in slugs[:5]]
     df = pd.DataFrame(results)
     df.to_csv('messari_asset_details_graphql.csv',index=False)

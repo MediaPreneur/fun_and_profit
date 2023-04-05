@@ -17,13 +17,10 @@ import sitemap_scraper
 def get_soup(url):
     headers = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"}
     r = requests.get(url, headers=headers, proxies=proxies)
-    soup = BeautifulSoup(r.text, 'html.parser')
-    return soup
+    return BeautifulSoup(r.text, 'html.parser')
 
 def scrape_pitchbook_profile(url):
-    details = {}
-    details["url"] = url
-
+    details = {"url": url}
     try:
         soup = get_soup(url)
         details['name'] = soup.find('h2').text.replace("Overview","").strip()
@@ -60,10 +57,7 @@ def prepare_keywords():
     keywords1 = list(string.ascii_lowercase)
     # product of combinations of 2 letters
     keywords2 = [a+b for a in keywords1 for b in keywords1]
-    # product of combinations of 3 letters
-    # keywords3 = [a+b+c for a in keywords1 for b in keywords1 for c in keywords1]
-    keywords = keywords2  + keywords1
-    return keywords
+    return keywords2  + keywords1
 
 def scrape_all_search_results():
     keywords = prepare_keywords()
