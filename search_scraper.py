@@ -15,18 +15,10 @@ import re
 def get_soup(url):
     headers = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"}
     r = requests.get(url, headers=headers, proxies=proxies)
-    soup = BeautifulSoup(r.text, 'html.parser')
-    return soup
+    return BeautifulSoup(r.text, 'html.parser')
 
 def prepare_keywords():
-    # keywords = []
-    keywords1 = list(string.ascii_lowercase)
-    # product of combinations of 2 letters
-    # keywords2 = [a+b for a in keywords1 for b in keywords1]
-    # # product of combinations of 3 letters
-    # # keywords3 = [a+b+c for a in keywords1 for b in keywords1 for c in keywords1]
-    # keywords = keywords2  + keywords1
-    return keywords1
+    return list(string.ascii_lowercase)
 
 def scrape_duckduckgo(keyword):
     url = "https://duckduckgo.com/html/?q=" + keyword
@@ -34,11 +26,9 @@ def scrape_duckduckgo(keyword):
     try:
         soup = get_soup(url)
         links = soup.find_all("a",class_="result__snippet")
-        
+
         for l in links:
-            details = {}
-            details["url"] = l["href"]
-            details["snippet"] = l.text
+            details = {"url": l["href"], "snippet": l.text}
             # extract email using regex from string snippet
             emails = re.findall(r'[\w\.-]+@[\w\.-]+', details["snippet"])
             details["email"] = emails[0].rstrip(".") if len(emails) > 0 else ""

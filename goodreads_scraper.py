@@ -19,8 +19,7 @@ def scrape_quotes(url):
     for quote in quotes:
         
         quote_text = quote.find("div",class_="quoteText").text
-        details = {}
-        details["quote"] = quote_text.split("―")[0].strip()
+        details = {"quote": quote_text.split("―")[0].strip()}
         details["author"] = quote_text.split("―")[1].strip()
 
         tags_container = quote.find("div",class_="smallText")
@@ -32,7 +31,7 @@ def scrape_quotes(url):
             pass
 
         results.append(details)
-    
+
     return results
 
 
@@ -42,13 +41,13 @@ def scrape_all_quotes():
     i = 1
     while True:
         try:
-            url = "https://www.goodreads.com/quotes?page=" + str(i)
+            url = f"https://www.goodreads.com/quotes?page={str(i)}"
             print(url)
             sub_results = scrape_quotes(url)
-            
+
             if results[-30:] == sub_results:
                 break
-            
+
             results += sub_results
             i+=1
         except Exception as e:

@@ -8,12 +8,10 @@ def scrape_sitemap(url):
     r = requests.get(url)
     # parse the xml
     tree = ET.fromstring(r.content)
-    # get all urls
-    urls = []
-    for u in tree.iter('{http://www.sitemaps.org/schemas/sitemap/0.9}loc'):
-        urls.append(u.text)
-    # return the list of urls
-    return urls
+    return [
+        u.text
+        for u in tree.iter('{http://www.sitemaps.org/schemas/sitemap/0.9}loc')
+    ]
 
 def download_and_extract_gz_file(url):
     # download the file
@@ -24,10 +22,12 @@ def download_and_extract_gz_file(url):
         content = f.read()
         # parse the file
         tree = ET.fromstring(content)
-        # get all the urls
-        urls = []
-        for url in tree.iter('{http://www.sitemaps.org/schemas/sitemap/0.9}loc'):
-            urls.append(url.text)
+        urls = [
+            url.text
+            for url in tree.iter(
+                '{http://www.sitemaps.org/schemas/sitemap/0.9}loc'
+            )
+        ]
     # return the list of urls
     return urls
 

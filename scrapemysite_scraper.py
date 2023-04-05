@@ -32,7 +32,7 @@ headers = {
 
 results = []
 for pagenumber in range(1,2):
-    data = 'sort=date_domain_added+desc&p=' + str(pagenumber)
+    data = f'sort=date_domain_added+desc&p={str(pagenumber)}'
 
     response = requests.post('https://searchmysite.net/search/browse/', data=data,headers=headers)
     print(response.text)

@@ -10,17 +10,16 @@ import requests
 import pandas as pd 
 
 def get_courses(pagenumber,category_id):
-    url = "https://www.udemy.com/api-2.0/discovery-units/all_courses/?p={}&page_size=60&subcategory=&instructional_level=&lang=&price=&duration=&closed_captions=&subs_filter_type=&label_id={}&source_page=topic_page&locale=en_US&currency=eur&navigation_locale=en_US&skip_price=true&sos=pl&fl=lbl".format(str(pagenumber),str(category_id))
+    url = f"https://www.udemy.com/api-2.0/discovery-units/all_courses/?p={str(pagenumber)}&page_size=60&subcategory=&instructional_level=&lang=&price=&duration=&closed_captions=&subs_filter_type=&label_id={str(category_id)}&source_page=topic_page&locale=en_US&currency=eur&navigation_locale=en_US&skip_price=true&sos=pl&fl=lbl"
     response = requests.get(url,proxies=proxies)
-    results = response.json()
-    return results
+    return response.json()
 
 def get_all_courses():
     category_id = 7380
     results = []
     i = 1
     while True:
-        print("Getting page {}".format(i))
+        print(f"Getting page {i}")
         try:
             res =  get_courses(i,category_id)
             if "detail" in res.keys():

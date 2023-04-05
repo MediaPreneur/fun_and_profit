@@ -14,13 +14,13 @@ r = requests.get(url, headers=HEADER)
 
 WEBSHARE_USERNAME = 'sdfbfasjnd-rotate'
 WEBSHARE_PASSWORD = 'jndandnaskfndasd'
-PROXY = "http://{}:{}@p.webshare.io:80/".format(WEBSHARE_USERNAME, WEBSHARE_PASSWORD)
+PROXY = f"http://{WEBSHARE_USERNAME}:{WEBSHARE_PASSWORD}@p.webshare.io:80/"
 proxies = {
                 "http": PROXY,
                 "https": PROXY
     }
 
-for i in range(10):
+for _ in range(10):
     r = requests.get(url, proxies=proxies)
     if r.status_code == 200:
         print("Success")
@@ -30,7 +30,9 @@ r = requests.get(url, proxies=proxies,headers=HEADER)
 #### SCRAPER API
 
 SCRAPER_API_KEY = "kkfnasjkdnkajsnkdnask"
-r =  requests.get('http://api.scraperapi.com?api_key={}&url={}'.format(SCRAPER_API_KEY, url))
+r = requests.get(
+    f'http://api.scraperapi.com?api_key={SCRAPER_API_KEY}&url={url}'
+)
 
 #### SCRAPING BEE
 

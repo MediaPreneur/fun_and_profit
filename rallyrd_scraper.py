@@ -63,7 +63,7 @@ def scrape_assets():
 
 def get_rally_json_data():
 
-    for i in range(0,10):
+    for _ in range(10):
         try:
             url = "https://api.production.rallyrd.com/api/v3/auth/login/"
             # url = "https://rallyrd.com"
@@ -74,7 +74,7 @@ def get_rally_json_data():
             raw = scraper.post(url,json=payload, headers=headers)
             rawson = raw.json()
             jwttoken = rawson["token"]
-            
+
             headers = {"Authorization": "JWT " + jwttoken,"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:71.0) Gecko/20100101 Firefox/71.0", "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "Accept-Language": "en-US,en;q=0.5", "Accept-Encoding": "gzip, deflate", "DNT": "1", "Connection": "close", "Upgrade-Insecure-Requests": "1"}
             # print(headers)
             r = scraper.get("https://api.production.rallyrd.com/api/v2/assets/", headers=headers)
